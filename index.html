@@ -59,13 +59,13 @@ by Guido van Rossum and Fred L. Drake, Jr</figcaption>
   	<section class="slide" id="Quote"><div>
   		<figure>
   			<blockquote style="font-size: 3em; ">
-  				<p>Software is like sex: it's better when it's free.</p>
+  				<p>Software is like s*x: it's better when it's free.</p>
   			</blockquote>
   			<figcaption>Linus Torvalds</figcaption>
   		</figure>
   	</div></section>
 
-     <section class="slide" id="WhatWillBeCovered"><div>
+     <section class="slide active" id="WhatWillBeCovered"><div>
   		<h2>What we are going to do?</h2>
   		<ol>
   			<li>Have a discussion about what do you think are good and bad parts in python packaging ecosystem?</li>
@@ -73,6 +73,49 @@ by Guido van Rossum and Fred L. Drake, Jr</figcaption>
   			<li class="next">Other related tools and services</li>
   		</ol>
   	</div></section>
+
+
+    <section class="slide shout id="PYPI"><div>
+		<h2><a href="https://pypi.python.org/pypi" target="_blank">pypi.python.org</a></h2>
+	</div></section>
+
+
+    <section class="slide" id="pypiInfo">
+        <div>
+            <h2>The Python Package Index is a repository of software for the Python programming language. <mark>45876</mark></h2>
+            <ol>
+                <li class="next">Fast (Fastly CDN)</li>
+                <li class="next">Reliable :)</li>
+                <li class="next">Secure (?)</li>
+            </ol>
+        </div>
+    </section>
+
+
+    <section class="slide" id="StartingPackaging">
+        <div>
+            <h2>Official guidelines?</h2>
+            <ol>
+                <li class="next"><a href="https://docs.python.org/3/distutils/packageindex.html">https://docs.python.org/3/distutils/packageindex.html</a></li>
+                <li class="next"><a href="http://python-packaging-user-guide.readthedocs.org/en/latest/">http://python-packaging-user-guide.readthedocs.org/en/latest/</a></li>
+                <li class="next">setuptools vs distutils?</li>
+                <li class="next">pip vs easy_install?</li>
+                <li class="next">...</li>
+            </ol>
+        </div>
+    </section>
+
+
+    <section class="slide" id="PyPA">
+        <div>
+            <h2>Python Packaging Authority (PyPA)</h2>
+            <figure><figurecaption>PyPA is a working group that maintains many of the relevant projects in Python packaging.
+                They host projects on <a href="https://github.com/pypa">github</a> and <a
+                        href="https://bitbucket.org/pypa">bitbucket</a>, and discuss issues on the <a
+                        href="https://groups.google.com/forum/#!forum/pypa-dev">pypa-dev mailing list</a>.
+</figurecaption></figure>
+        </div>
+    </section>
 
 
     <section class="slide active" id="CurrentState"><div>
@@ -147,11 +190,49 @@ by Guido van Rossum and Fred L. Drake, Jr</figcaption>
 packages=<mark>['votepackage', 'votepackage.tests']</mark>
         </code>
       </pre>
+        <figure>
+            <figurecaption>Looking for path relative to the directory where your setup script lives.</figurecaption>
+            <pre><codestyle="font-size: 0.9em; line-height: 1.4em">
+                <mark>package_dir</mark> = {'': 'src/lib'}
+            </code></pre>
+        </figure>
+  	</div></section>
+
+
+  	<section class="slide" id="MinimalSetupPackageData"><div>
+      <h2>Minimal setup.py data: <mark>package data</mark></h2>
+      <pre><code>
+setup(...,
+      package_data={'votepackage': ['stats/*.json']},
+      ...
+     )
+        </code>
+      </pre>
+        <figure>
+            <figurecaption>All the files that match <mark>package_data</mark> will be added to the <mark>MANIFEST</mark> file if no template is provided.</figurecaption>
+        </figure>
+  	</div></section>
+
+
+    <section class="slide" id="MinimalSetupAdditionalFiles"><div>
+      <h2>Installing Additional Files</h2>
+      <pre><code>
+setup(...,
+      <makr>data_files</makr>=[
+          ('/etc/init.d', ['pypivote-server']),
+          ]
+      ...
+     )
+        </code>
+      </pre>
+        <figure>
+            <figurecaption>Recommended way in case you may need to place data files outside of you package.</figurecaption>
+        </figure>
   	</div></section>
 
   	<section class="slide" id="MinimalSetupVersion"><div>
       <h2>Minimal setup.py data: <mark>version</mark></h2>
-      PEP 386 -- Changing the version comparison module in Distutils <a href="http://www.peps.io/386/">http://www.peps.io/386/</a>
+      PEP 386 -- Changing the version comparison module in Distutils <a href="#">PEP 386/</a>
       <pre>
         <code style="font-size: 0.9em; line-height: 1.4em">
  >>> from distutils.version import <mark>LooseVersion</mark> as V
@@ -238,7 +319,7 @@ recursive-include votepackage/templates *
   
   	<section class="slide" id="classifiers"><div>
       <h2>Classifiers</h2>
-      PEP 301 -- Package Index and Metadata for Distutils <a href="http://peps.io/0301/">http://peps.io/0301/</a>
+      PEP 301 -- Package Index and Metadata for Distutils <a href="#">PEP 0301</a>
       <pre><code style="font-size: 0.9em; line-height: 1.4em">
         classifiers=[
             'Development Status :: 1 - Planning',
@@ -258,7 +339,9 @@ recursive-include votepackage/templates *
   	<section class="slide" id="scripts"><div>
       <h2>Console scripts</h2>
       <pre><code style="font-size: 0.9em; line-height: 1.4em">
-        <mark>scripts</mark>=['django/bin/django-admin.py']
+        setup(...,
+            <mark>scripts</mark>=['django/bin/django-admin.py']
+         )
         </code>
       </pre>
   	</div></section>
@@ -410,16 +493,31 @@ recursive-include votepackage/templates *
 
 	<section class="slide" id="WheelPackages"><div>
     <h2>The Wheel Binary Package Format </h2>
-    <a href="http://peps.io/427/">PEP-427</a>
+    <a href="#">PEP 427</a>, <a href="http://pythonwheels.com/">pythonwheels.com/</a>
     <pre>
       <code style="font-size: 1em; line-height: 1.4em">
-        pip wheel [options] <requirement specifier> ...
-        pip wheel [options] -r <requirements file> ...
-        pip wheel [options] <vcs project url> ...
-        pip wheel [options] <local project path> ...
-        pip wheel [options] <archive url/path> ...
+python setup.py <mark>bdist_wheel</mark> --universal
+          ....
+pip wheel --wheel-dir=/local/wheels -r requirements.txt
+pip install --no-index --find-links=/local/wheels \
+          -r requirements.txt
       </code>
     </pre>
+	</div></section>
+
+
+    <section class="slide" id="Twine"><div>
+    <h2>Twine is a utility for interacting with PyPI</h2>
+    <a href="https://pypi.python.org/pypi/twine">pypi/twine</a>
+        <figure>
+            <figurecaption><ol>
+                <li>Verified HTTPS Connections</li>
+                <li>Uploading doesn't require executing setup.py</li>
+                <li>Uploading files that have already been created, allowing testing of distributions before release</li>
+                <li>Supports uploading any packaging format (including wheels)</li>
+            </ol></figurecaption>
+            <pre><code><mark>twine</mark> upload dist/*</code></pre>
+        </figure>
 	</div></section>
 
 	<section class="slide shout" id="Future"><div>
@@ -440,7 +538,7 @@ recursive-include votepackage/templates *
   
 	<section class="slide" id="Distutils2"><div>
     <h2>Some of the distutils2 features</h2>
-    <a href="http://peps.io/426/">http://peps.io/426/</a>
+    <a href="#">PEP 426</a>
     <pre>
       <code style="font-size: 1em; line-height: 1.4em">
         Requires-External: C
@@ -465,7 +563,7 @@ recursive-include votepackage/templates *
 
 	<section class="slide shout" id="Thanks"><div>
 		<h2>
-      Thank you! LvivPy#2 is awesome :)
+      Thank you!
     </h2>
 	</div></section>
 
@@ -475,7 +573,7 @@ recursive-include votepackage/templates *
     </h2>
 	</div></section>
 
-	<p class="badge"><a href="https://github.com/rootart/lvivpy-python-packaging">Fork me on Github</a></p>
+	<p class="badge"><a href="https://github.com/rootart/zurich-python-meetup-packaging">Fork me on Github</a></p>
 	<!--
 		To hide progress bar from entire presentation
 		just remove “progress” element.
