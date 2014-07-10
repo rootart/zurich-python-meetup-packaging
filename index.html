@@ -342,6 +342,11 @@ recursive-include votepackage/templates *
         setup(...,
             <mark>scripts</mark>=['django/bin/django-admin.py']
          )
+
+        <mark>entry_points</mark>={
+            'console_scripts': [
+                'pypivote=votepackage:main',
+           ],
         </code>
       </pre>
   	</div></section>
@@ -474,6 +479,7 @@ recursive-include votepackage/templates *
         $ pip install <mark>-r</mark> requirements-dev.txt
         $ pip install ... -M (--mirrors) #PEP-381
         $ pip install <mark>-e</mark> git/hg/svn
+        $ pip list -o #get outdated packages
       </code>
     </pre>
 	</div></section>
