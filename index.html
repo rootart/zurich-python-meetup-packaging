@@ -302,8 +302,8 @@ recursive-include votepackage/templates *
       </pre>
   	</div></section>
 
-  	<section class="slide" id="PlatformRelay"><div>
-      <h2>Relay on <mark>platform</mark> or <mark>python version</mark></h2>
+  	<section class="slide" id="PlatformRely"><div>
+      <h2>Rely on <mark>platform</mark> or <mark>python version</mark></h2>
       <pre><code>
         if <mark>sys.version_info[:2]</mark> in ((2, 6), (3, 1)):
             # argparse has been added in Python 3.2 / 2.7
@@ -537,10 +537,12 @@ pip install --no-index --find-links=/local/wheels \
     <ol>
       <li>standalone setup tool that install and uninstall packages</li>
       <li class="next">metadata will be available outside of Python file in <mark>setup.cfg</mark></li>
-      <li class="next">already in Python 3 trun as a <mark>packaging</mark></li>
-      
+      <li class="next">already in Python 3 as a <mark>setuptools</mark></li>
+      <li class="next">pre-releases</li>
+      <li class="next">PEP 426</li>
     </ol>
 	</div></section>
+
   
 	<section class="slide" id="Distutils2"><div>
     <h2>Some of the distutils2 features</h2>
@@ -556,7 +558,26 @@ pip install --no-index --find-links=/local/wheels \
       </code>
     </pre>
 	</div></section>
-  
+
+
+   <section class="slide" id="PIPPY34"><div>
+    <h2>Say hello to PIP (PEP 453)</h2>
+       <figure>
+           <figurecaption><mark>PIP</mark> is a part of standard library from python 3.4</figurecaption>
+       </figure>
+	</div></section>
+
+    <section class="slide" id="Warehouse">
+        <div>
+        <h2>Python Warehouse</h2>
+        <figure>
+            <figurecaption>
+                <ul>
+                    <li><a href="https://warehouse.python.org/">https://warehouse.python.org/</a> (create.io in the past)</li>
+                </ul>
+            </figurecaption>
+        </figure></div>
+    </section>
 	<section class="slide" id="Follow"><div>
     <ol>
       <li>KISS</li>
@@ -564,6 +585,7 @@ pip install --no-index --find-links=/local/wheels \
       <li class="next">Use best practices of virtualenv/pip</li>
       <li class="next">Read PEPs and lookout for new changes in distutils2</li>
       <li class="next">Share your experience</li>
+      <li class="next"><a href="http://packaging.python.org">http://packaging.python.org</a></li>
     </ol>
 	</div></section>
 
